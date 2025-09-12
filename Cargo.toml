@@ -2,5 +2,13 @@
 name = "git-profiles-cli"
 version = "0.1.0"
 edition = "2024"
+authors = ["MikAoJk"]
+description = "A CLI tool to switch between private and work user profiles"
+license = "MIT"
+repository = "https://github.com/MikAoJk/git-profiles-cli"
 
 [dependencies]
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+dirs = "5.0"
