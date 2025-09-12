@@ -69,3 +69,10 @@ git-profiles-cli current
 ```
 git-profiles-cli remove <name>
 ```
+
+## Where are profiles stored?
+
+Profiles are stored in a config file at thid location:
+- Linux/macOS: `~/.config/git-profiles-cli/config.toml`
+
+---
