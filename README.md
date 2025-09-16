@@ -8,33 +8,14 @@ A CLI tool to switch between private and work user profiles
 * Rust
 * Cargo
 
-### Prerequisites
-#### Rust
-Make sure you have the correct rust installed, see: [Installing Rust](https://www.rust-lang.org/learn/get-started)
-The version of rust used in this project could be found here: [Cargo.toml](Cargo.toml)
-To verify the version of rust installed, run the following command:
+## Installation Methods
+### 1. Installing from Crates.io
 ```bash script
-rustc --version
+cargo install git-profiles-cli
 ```
-
-#### Cargo
-Make sure you have cargo installed using this command:
-> Note: installing Rust using rustup will also install cargo
+### 2. Installing from a Git repository
 ```bash script
-cargo --version
-```
-
-### Build code
-Build the code without running it
-```bash script
-cargo build
-```
-
-#### Run the application locally
-##### Run code
-Run the application locally
-```bash script
-cargo run
+cargo install --git https://github.com/MikAoJk/git-profiles-cli git-profiles-cli
 ```
 
 ## Using the cli
@@ -79,3 +60,33 @@ Profiles are stored in a config file at thid location:
 - Linux/macOS: `~/.config/git-profiles-cli/config.toml`
 
 ---
+
+
+### Local development Prerequisites
+#### Rust
+Make sure you have the correct rust installed, see: [Installing Rust](https://www.rust-lang.org/learn/get-started)
+The version of rust used in this project could be found here: [Cargo.toml](Cargo.toml)
+To verify the version of rust installed, run the following command:
+```bash script
+rustc --version
+```
+
+#### Cargo
+Make sure you have cargo installed using this command:
+> Note: installing Rust using rustup will also install cargo
+```bash script
+cargo --version
+```
+
+### Build code
+Build the code without running it
+```bash script
+cargo build
+```
+
+#### Run the application locally
+##### Run code
+Run the application locally
+```bash script
+cargo run
+```
