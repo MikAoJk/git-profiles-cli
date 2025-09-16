@@ -1,6 +1,9 @@
 # git-profiles-cli
 A CLI tool to switch between private and work user profiles
 
+![Crates.io Version](https://img.shields.io/crates/v/git-profiles-cli)
+
+
 ## Technologies used
 * Rust
 * Cargo
