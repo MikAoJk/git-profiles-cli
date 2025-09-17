@@ -7,13 +7,16 @@ jobs:
   Publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      
-      - uses: actions-rs/toolchain@v1
+      - name: Checkout
+        uses: actions/checkout@v5
+        
+      - name: Toolchain
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           
-      - uses: actions-rs/cargo@v1
+      - name: Publish   
+        uses: actions-rs/cargo@v1
         with:
           command: publish 
         env:            

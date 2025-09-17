@@ -33,7 +33,7 @@ enum Commands {
     Current,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 struct Profile {
     name: String,
     email: String,
@@ -206,4 +206,64 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add_profile() {
+        let mut config = Config::default();
+        let profile = Profile { name: "Test User".to_string(), email: "test@example.com".to_string() };
+        config.profiles.insert("test".to_string(), profile.clone());
+
+        assert_eq!(config.profiles.len(), 1);
+        assert_eq!(config.profiles.get("test").unwrap(), &profile);
+    }
+
+    #[test]
+    fn test_remove_profile() {
+        let mut config = Config::default();
+        config.profiles.insert(
+            "test".to_string(),
+            Profile { name: "Test User".to_string(), email: "test@example.com".to_string() }
+        );
+
+        let removed = config.profiles.remove("test");
+        assert!(removed.is_some());
+        assert!(config.profiles.get("test").is_none());
+    }
+
+    #[test]
+    fn test_list_profiles() {
+        let mut config = Config::default();
+        config.profiles.insert(
+            "test".to_string(),
+            Profile { name: "Test User".to_string(), email: "test@example.com".to_string() }
+        );
+
+        let mut profiles: Vec<_> = config.profiles.iter().collect();
+        profiles.sort_by_key(|(name, _)| name.as_str());
+
+        assert_eq!(profiles.len(), 1);
+        assert_eq!(profiles[0].0, "test");
+    }
+
+    #[test]
+    fn test_switch_profile_sets_git_config() {
+        let profile = Profile { name: "Test User".to_string(), email: "test@example.com".to_string() };
+        let result_name = git_config_set("user.name", &profile.name);
+        let result_email = git_config_set("user.email", &profile.email);
+
+        assert!(result_name.is_ok());
+        assert!(result_email.is_ok());
+    }
+
+    #[test]
+    fn test_git_config_get_returns_value_or_not_set() {
+        let result = git_config_get("user.name");
+        assert!(result.is_ok());
+    }
+ 
 }
