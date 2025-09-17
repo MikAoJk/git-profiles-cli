@@ -33,7 +33,7 @@ enum Commands {
     Current,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 struct Profile {
     name: String,
     email: String,
@@ -211,7 +211,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::{self, Write};
     use std::process::Command;
 
     #[test]
