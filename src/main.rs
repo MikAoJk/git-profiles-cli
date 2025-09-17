@@ -211,7 +211,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::process::Command;
 
     #[test]
     fn test_add_profile() {
@@ -260,8 +259,6 @@ mod tests {
         assert!(result_name.is_ok());
         assert!(result_email.is_ok());
     }
-
-
 
     #[test]
     fn test_git_config_get_returns_value_or_not_set() {
