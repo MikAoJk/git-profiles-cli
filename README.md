@@ -7,6 +7,7 @@ A CLI tool to switch between private and work user profiles
 ## Technologies used
 * Rust
 * Cargo
+* Git
 
 ## Installation Methods
 ### 1. Installing from Crates.io
@@ -76,6 +77,12 @@ Make sure you have cargo installed using this command:
 > Note: installing Rust using rustup will also install cargo
 ```bash script
 cargo --version
+```
+
+#### Git
+Make sure you have git installed using this command:
+```bash script
+git --version
 ```
 
 ### Build code
