@@ -206,7 +206,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     Ok(())
-
+}
 
 #[cfg(test)]
 mod tests {
@@ -272,5 +272,5 @@ mod tests {
         let result = git_config_get("user.name");
         assert!(result.is_ok());
     }
- }
+ 
 }
