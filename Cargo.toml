@@ -12,5 +12,5 @@ keywords = ["cli", "git", "profiles"]
 [dependencies]
 clap = { version = "4.5.47", features = ["derive"] }
 serde = { version = "1.0.225", features = ["derive"] }
-toml = "0.9.6"
+toml = "0.9.7"
 dirs = "6.0.0"
