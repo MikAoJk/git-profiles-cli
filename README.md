@@ -45,7 +45,7 @@ git-profiles-cli switch work
 
 ### View current user
 
-```[LICENSE](../bible-group-meeting-notification-sms/LICENSE)
+```
 git-profiles-cli current
 ```
 
