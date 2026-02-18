@@ -17,6 +17,8 @@ jobs:
   update-tap:
     name: Update Homebrew Formula
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout tap repository
         uses: actions/checkout@v6

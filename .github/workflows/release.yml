@@ -8,6 +8,8 @@ jobs:
   build-macos:
     name: Build for macOS
     runs-on: macos-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         target:
@@ -52,6 +54,8 @@ jobs:
   build-linux:
     name: Build for Linux
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         target:
