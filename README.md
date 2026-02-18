@@ -10,14 +10,29 @@ A CLI tool to switch between private and work user profiles or other git profile
 * Git
 
 ## Installation Methods
-### 1. Installing from Crates.io
+### 1. Installing via Homebrew (macOS/Linux)
+```bash script
+# Add the tap (first time only)
+brew tap MikAoJk/tap
+
+# Install the tool
+brew install git-profiles-cli
+```
+Or in one command:
+```bash script
+brew install MikAoJk/tap/git-profiles-cli
+```
+
+### 2. Installing from Crates.io
 ```bash script
 cargo install git-profiles-cli
 ```
-### 2. Installing from a Git repository
+### 3. Installing from a Git repository
 ```bash script
 cargo install --git https://github.com/MikAoJk/git-profiles-cli git-profiles-cli
 ```
+### 4. Download pre-built binaries
+Download the latest release for your platform from the [releases page](https://github.com/MikAoJk/git-profiles-cli/releases).
 
 ## Using the cli
 
