@@ -1,6 +1,6 @@
 [package]
 name = "git-profiles-cli"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
 authors = ["MikAoJk"]
 description = "A CLI tool to switch between private and work user profiles"
