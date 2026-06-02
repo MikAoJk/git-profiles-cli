@@ -1,0 +1,33 @@
+name: git-profiles-cli
+base: core22
+version: git
+summary: A CLI tool to switch between git user profiles
+description: |
+  git-profiles-cli is a command-line tool that helps you easily switch between
+  different git user profiles (work, personal, etc.). You can store multiple
+  profiles with different user names and emails, and switch between them with
+  a simple command.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
+
+apps:
+  git-profiles-cli:
+    command: bin/git-profiles-cli
+    plugs:
+      - home
+      - network
+
+parts:
+  git-profiles-cli:
+    plugin: rust
+    source: .
+    build-packages:
+      - git
+    stage-packages:
+      - git

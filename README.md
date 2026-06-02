@@ -2,6 +2,7 @@
 A CLI tool to switch between private and work user profiles or other git profiles
 
 ![Crates.io Version](https://img.shields.io/crates/v/git-profiles-cli)
+[![Snap Store](https://snapcraft.io/git-profiles-cli/badge.svg)](https://snapcraft.io/git-profiles-cli)
 
 
 ## Technologies used
@@ -10,11 +11,16 @@ A CLI tool to switch between private and work user profiles or other git profile
 * Git
 
 ## Installation Methods
-### 1. Installing from Crates.io
+### 1. Installing from Snap Store
+```bash script
+sudo snap install git-profiles-cli
+```
+
+### 2. Installing from Crates.io
 ```bash script
 cargo install git-profiles-cli
 ```
-### 2. Installing from a Git repository
+### 3. Installing from a Git repository
 ```bash script
 cargo install --git https://github.com/MikAoJk/git-profiles-cli git-profiles-cli
 ```
