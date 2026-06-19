@@ -41,7 +41,7 @@ git-profiles-cli switch <name>
 git-profiles-cli switch work
 ```
 
-### View current user
+### View current profile
 
 ```
 git-profiles-cli current
