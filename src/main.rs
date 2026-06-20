@@ -1,10 +1,10 @@
+pub mod config;
+
 use clap::{Parser, Subcommand};
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use std::fs;
+
 use std::io::{self, Write};
-use std::path::PathBuf;
 use std::process::Command;
+use crate::config::{Config, Profile};
 
 #[derive(Parser)]
 #[command(name = "git-profiles-cli")]
@@ -31,51 +31,9 @@ enum Commands {
         name: String,
     },
     Current,
+    Version,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
-struct Profile {
-    name: String,
-    email: String,
-}
-
-#[derive(Debug, Serialize, Deserialize, Default)]
-struct Config {
-    profiles: HashMap<String, Profile>,
-}
-
-impl Config {
-    fn load() -> Result<Self, Box<dyn std::error::Error>> {
-        let config_path = Self::config_path()?;
-
-        if !config_path.exists() {
-            return Ok(Config::default());
-        }
-
-        let content = fs::read_to_string(config_path)?;
-        let config: Config = toml::from_str(&content)?;
-        Ok(config)
-    }
-
-    fn save(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let config_path = Self::config_path()?;
-        let content = toml::to_string_pretty(self)?;
-
-        if let Some(parent) = config_path.parent() {
-            fs::create_dir_all(parent)?;
-        }
-
-        fs::write(config_path, content)?;
-        Ok(())
-    }
-
-    fn config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
-        let mut path = dirs::config_dir().ok_or("Could not find config directory")?;
-        path.push("git-profiles-cli");
-        path.push("config.toml");
-        Ok(path)
-    }
-}
 
 fn git_config_set(key: &str, value: &str) -> Result<(), Box<dyn std::error::Error>> {
     let output = Command::new("git")
@@ -168,6 +126,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     println!();
                 }
             }
+        }
+
+        Commands::Version => {
+            println!(env!("CARGO_PKG_VERSION"));
         }
 
         Commands::Switch { name } => match config.profiles.get(&name) {

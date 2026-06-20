@@ -41,7 +41,7 @@ git-profiles-cli switch <name>
 git-profiles-cli switch work
 ```
 
-### View current profile
+### View the current profile
 
 ```
 git-profiles-cli current
@@ -51,6 +51,12 @@ git-profiles-cli current
 
 ```
 git-profiles-cli remove <name>
+```
+
+### Version of git-profiles-cli 
+
+```
+git-profiles-cli version
 ```
 
 ## Where are profiles stored?
