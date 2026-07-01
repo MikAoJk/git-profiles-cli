@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: Build release binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --target ${{ matrix.target }}
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Package binary
+        run: |
+          cd target/${{ matrix.target }}/release
+          tar -czf git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz git-profiles-cli
+          shasum -a 256 git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz > git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz.sha256
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            target/${{ matrix.target }}/release/git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz
+            target/${{ matrix.target }}/release/git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - aarch64-unknown-linux-gnu
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: Install cross-compilation tools
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Build release binary
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
+          command: build
+          args: --release --target ${{ matrix.target }}
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Package binary
+        run: |
+          cd target/${{ matrix.target }}/release
+          tar -czf git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz git-profiles-cli
+          sha256sum git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz > git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz.sha256
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            target/${{ matrix.target }}/release/git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz
+            target/${{ matrix.target }}/release/git-profiles-cli-${{ steps.version.outputs.VERSION }}-${{ matrix.target }}.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
