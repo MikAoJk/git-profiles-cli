@@ -14,7 +14,7 @@ A CLI tool to switch between private and work user profiles or other git profile
 ```bash script
 cargo install git-profiles-cli
 ```
-### 2. Installing from a Git repository
+### 2. Installing from Git repository
 ```bash script
 cargo install --git https://github.com/MikAoJk/git-profiles-cli git-profiles-cli
 ```
